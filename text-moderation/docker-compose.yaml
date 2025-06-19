@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  comment_review-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${COMMENT_PORT}:${COMMENT_PORT}
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    restart: always
