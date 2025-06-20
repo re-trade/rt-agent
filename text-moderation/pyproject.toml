@@ -1,0 +1,13 @@
+[project]
+name = "text-moderation"
+version = "0.1.0"
+description = "Text Moderation"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+"uvicorn",
+"fastapi",
+"openai",
+"pydantic",
+"dotenv"
+]

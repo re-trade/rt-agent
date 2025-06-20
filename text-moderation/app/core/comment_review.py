@@ -31,11 +31,10 @@ async def review_comment(comment: str) -> Review:
     
     # Call sentiment analysis (Ensure it is async if needed)
     try:
-        sentiment = await asyncio.to_thread(sentiment_analysis, comment)  # Run in a separate thread if it's sync
+        sentiment = await asyncio.to_thread(sentiment_analysis, comment)
     except Exception as e:
         raise Exception(f"Error during sentiment analysis: {str(e)}")
     
-    # Check if comment is flagged for moderation
     if sentiment.get("flagged", False):  # Ensure correct key lookup
         return Review(status=False, message="Comment has some categories not valid: " + str(sentiment["flagged_categories"]))
 

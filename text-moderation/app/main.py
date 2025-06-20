@@ -1,3 +1,4 @@
+from app.api.health import router as health_router
 from app.api.review import router as review_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,8 +16,5 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.include_router(review_router, prefix="/review", tags=["comment_review"])
-
-@app.get("/")
-def root():
-    return {"status": "200", "message": "Welcome to Comment Moderation API", "data": None}
+app.include_router(review_router, prefix="/comment", tags=["Comment Moderation"])
+app.include_router(health_router, tags=["Health Check"])

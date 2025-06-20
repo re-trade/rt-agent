@@ -1,7 +1,9 @@
-from os import getenv
 import logging
 import time
-from openai import OpenAI, APIError, RateLimitError, APIConnectionError
+from os import getenv
+
+from openai import APIConnectionError, APIError, OpenAI, RateLimitError
+
 # Initialize logger
 logger = logging.getLogger(__name__)
 
@@ -9,14 +11,13 @@ client = OpenAI(api_key=getenv('OPENAI_API_KEY', ''))
 
 def sentiment_analysis(text: str, max_retries: int = 3):
     retry_count = 0
-    base_delay = 1  # Base delay in seconds
+    base_delay = 1
     
     while retry_count < max_retries:
         try:
             response = client.moderations.create(
                 input=text,
             )
-            # If successful, break out of retry loop
             break
             
         except APIConnectionError as e:
@@ -42,7 +43,6 @@ def sentiment_analysis(text: str, max_retries: int = 3):
             logger.error(f"Unexpected error during sentiment analysis: {str(e)}")
             raise Exception("An unexpected error occurred during sentiment analysis.") from e
     
-    # Extract first result
     moderation_result = response.results[0]
     
     print(moderation_result)
