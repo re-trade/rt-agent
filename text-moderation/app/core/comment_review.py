@@ -7,7 +7,6 @@ from .models import Review
 current_dir = Path(__file__).parent
 data_dir = current_dir / "data" 
 
-# Load once when the API starts
 offensive_filter = OffensiveDetect(data_dir / "vn_offensive_words.txt")
 
 async def review_comment(comment: str) -> Review:
@@ -24,18 +23,16 @@ async def review_comment(comment: str) -> Review:
     2. Performs sentiment analysis on the comment.
     3. Flags the comment for moderation if it has an invalid attitude.
     """
-    
-    # Check for offensive words using a cached filter
+
     if offensive_filter.contains_prohibited_words(comment):
         return Review(status=False, message="Comment contains offensive words.")
-    
-    # Call sentiment analysis (Ensure it is async if needed)
+
     try:
         sentiment = await asyncio.to_thread(sentiment_analysis, comment)
     except Exception as e:
         raise Exception(f"Error during sentiment analysis: {str(e)}")
     
-    if sentiment.get("flagged", False):  # Ensure correct key lookup
+    if sentiment.get("flagged", False):
         return Review(status=False, message="Comment has some categories not valid: " + str(sentiment["flagged_categories"]))
 
     return Review(status=True, message="Comment is valid.")

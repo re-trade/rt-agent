@@ -7,7 +7,7 @@ class Review(BaseModel):
     status: bool
     message: str
 
-class CommetnResponse(BaseModel):
+class CommentResponse(BaseModel):
     status: str
     message: str
     data: list = None

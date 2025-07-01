@@ -1,8 +1,7 @@
 import logging
-import json
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
-from app.core import review_comment, CommentRequest, CommetnResponse
+from app.core import review_comment, CommentRequest, CommentResponse
 
 # Initialize logger
 logging.basicConfig(level=logging.INFO)
@@ -10,13 +9,12 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-@router.post("/")
+@router.post("")
 async def correct_spell(input: CommentRequest):
     try:
         logger.info(f"Received {len(input.comment)} comments for review.")
         result = await review_comment(input.comment)
 
-        # Trả về kết quả
         response = {
             "status": "200",
             "message": "Review comment successfully.",
