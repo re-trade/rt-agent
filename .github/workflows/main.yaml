@@ -1,0 +1,28 @@
+name: Agent CI/CD
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-agent-image:
+    name: Build / API
+    uses: ./.github/workflows/build-image.yaml
+    permissions:
+      contents: read
+      packages: write
+    with:
+      actor: ${{ github.actor }}
+      repository: ${{ github.repository }}
+    secrets: inherit
+
+  deploy-dev:
+    name: Deploy / DEV
+    needs: build-agent-image
+    uses: ./.github/workflows/deploy-dev.yaml
+    permissions:
+      contents: read
+      packages: write
+    with:
+      actor: ${{ github.actor }}
+      repository: ${{ github.repository }}
+    secrets: inherit
