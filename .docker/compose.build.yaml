@@ -2,8 +2,8 @@ services:
   product-image-search-services:
     image: ${REGISTRY}/product-image-search
     build:
-      context: ..
-      dockerfile: product-image-search/Dockerfile
+      context: ../product-image-search
+      dockerfile: Dockerfile
       tags:
         - ${REGISTRY}/rt-product-image-search:latest
         - ${REGISTRY}/rt-product-image-search:${TAG}
@@ -14,8 +14,8 @@ services:
   text-moderation-services:
     image: ${REGISTRY}/rt-text-moderation
     build:
-      context: ..
-      dockerfile: text-moderation/Dockerfile
+      context: ../text-moderation
+      dockerfile: Dockerfile
       tags:
         - ${REGISTRY}/rt-text-moderation:latest
         - ${REGISTRY}/rt-text-moderation:${TAG}
