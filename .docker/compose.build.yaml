@@ -1,6 +1,5 @@
 services:
   product-image-search-services:
-    image: ${REGISTRY}/product-image-search
     build:
       context: ../product-image-search
       dockerfile: Dockerfile
@@ -12,7 +11,6 @@ services:
       - build
       - product-image-search
   text-moderation-services:
-    image: ${REGISTRY}/rt-text-moderation
     build:
       context: ../text-moderation
       dockerfile: Dockerfile
