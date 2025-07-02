@@ -7,6 +7,8 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       APP_PORT: 9090
       APP_HOST: 0.0.0.0
+      QDRANT_URL: http://retrade-qdrant:6333
+      QDRANT_COLLECTION_NAME: retrade-product
       DEBUG: True
       TZ: Asia/Ho_Chi_Minh
       APP_API_KEY: ${APP_API_KEY}
