@@ -1,0 +1,12 @@
+fastapi[standard]
+openai
+uvicorn
+python-dotenv
+python-multipart
+aiohttp
+pillow
+httpx
+torch
+qdrant_client
+transformers
+torchvision

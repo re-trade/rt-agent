@@ -1,0 +1,11 @@
+services:
+  gemini-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: foodaily-ai
+    env_file:
+      - .env
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
