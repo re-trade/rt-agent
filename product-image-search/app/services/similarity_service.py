@@ -10,6 +10,9 @@ from app.models.request_models import SearchResults, SimilarityResult
 from app.config import settings
 from app.services.openai_service import openai_service
 from fastapi import UploadFile
+import logging
+
+logging.basicConfig(level=logging.ERROR)
 
 
 def make_thumbnail_data_uri(image: Image.Image, size: int = 64) -> str:
@@ -41,16 +44,13 @@ class SimilarityService:
 
     async def search_similar(self, image: Image.Image, limit: int = 10, similarity_threshold: float = 0.9) -> SearchResults:
         emb = self.get_image_embedding(image)
-
         hits = self.client.search(
             collection_name=self.collection_name,
             query_vector=emb,
             limit=limit,
             score_threshold=0.0
         )
-
         thumbnail = make_thumbnail_data_uri(image)
-
         if not hits or all(hit.score < similarity_threshold for hit in hits):
             try:
                 buffer = BytesIO()

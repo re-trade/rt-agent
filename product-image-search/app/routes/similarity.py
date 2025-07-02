@@ -21,27 +21,31 @@ async def search_similar_images(
     
     contents = await file.read()
     image = process_image(contents)
-    
+
     try:
         results = await similarity_service.search_similar(image, limit, similarity_threshold)
-        
+
         if not results.fallback_used:
-            filtered_results = [result for result in results.results if result.score is not None and result.score >= similarity_threshold]
-                
+            filtered_results = [
+                result for result in results.results
+                if result.score is not None and result.score >= similarity_threshold
+            ]
+
             if not filtered_results:
                 results.fallback_used = True
-            
+
             results.results = filtered_results
-        
+
         if results.fallback_used:
             await file.seek(0)
-            contents = await file.read()
-            results.extra_result = await openai_service.analyze_image(contents)
-            
+            results.extra_result = await openai_service.analyze_image(file)
         return results
+
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error searching similar images: {str(e)}")
-    
+
 @router.get("/similarity-health")
 async def similarity_health_check():
     return similarity_service.health_check()

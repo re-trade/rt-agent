@@ -8,7 +8,7 @@ from app.config import settings
 from app.routes import image_analysis, similarity
 
 app = FastAPI(
-    title="Foodaily Bot API",
+    title="ReTrade Bot API",
     description="Advanced AI Chatbot with Text, Image Analysis",
     version="1.0.0",
     docs_url=None,
@@ -41,7 +41,7 @@ app.openapi = custom_openapi
 async def custom_swagger_ui_html():
     return get_swagger_ui_html(
         openapi_url="/openapi.json",
-        title="Foodaily Bot API"
+        title="ReTrade Bot API"
     )
 
 @app.get("/ping")
