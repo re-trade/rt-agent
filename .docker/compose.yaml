@@ -72,7 +72,7 @@ services:
       VECTOR_SIZE: 100
     profiles:
       - agent
-      - build
+      - prod
       - mageai
 
 networks:
