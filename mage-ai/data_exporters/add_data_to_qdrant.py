@@ -3,9 +3,9 @@ import numpy as np
 from pandas import DataFrame
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import PointStruct, VectorParams, Distance
-from mage_ai.data_preparation.decorators import data_exporter
 from load_helpers.qdrant_helper import get_qdrant_config_from_env
-
+if 'data_exporter' not in globals():
+    from mage_ai.data_preparation.decorators import data_exporter
 @data_exporter
 def load_data_to_qdrant(product_vectors: DataFrame, **kwargs) -> None:
     """

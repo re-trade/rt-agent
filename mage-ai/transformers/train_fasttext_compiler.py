@@ -3,7 +3,12 @@ import fasttext
 import fasttext.util
 import pandas as pd
 import numpy as np
-from mage_ai.data_preparation.decorators import transformer, test
+
+if 'transformer' not in globals():
+    from mage_ai.data_preparation.decorators import transformer
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
 
 @transformer
 def transform(data: pd.DataFrame, *args, **kwargs):

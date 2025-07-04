@@ -2,28 +2,81 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration:
-    file_path: data_loaders/load_product_data_from_postgres.py
     file_source:
-      path: data_loaders/load_product_data_from_postgres.py
+      path: data_loaders/load_product_data.py
   downstream_blocks:
-  - summary_overview_for_load_data_movie
   - feature_engineering
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: load_product_data_from_postgres
+  name: load_product_data
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
-  uuid: load_product_data_from_postgres
-- all_upstream_blocks_executed: false
+  uuid: load_product_data
+- all_upstream_blocks_executed: true
   color: null
-  configuration: {}
+  configuration:
+    file_source:
+      path: data_loaders/load_product_categories_data.py
   downstream_blocks:
-  - missing_values_for_feature_engineering
+  - feature_engineering
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_product_categories_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_product_categories_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_loaders/load_order_data.py
+  downstream_blocks:
+  - feature_engineering
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_order_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_order_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_loaders/load_categories_data.py
+  downstream_blocks:
+  - feature_engineering
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_categories_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_categories_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/feature_engineering.py
+  downstream_blocks:
   - train_fasttext_compiler
   executor_config: null
   executor_type: local_python
@@ -31,24 +84,29 @@ blocks:
   language: python
   name: feature_engineering
   retry_config: null
-  status: updated
+  status: failed
   timeout: null
   type: transformer
   upstream_blocks:
-  - load_product_data_from_postgres
+  - load_categories_data
+  - load_order_data
+  - load_product_categories_data
+  - load_product_data
   uuid: feature_engineering
 - all_upstream_blocks_executed: false
   color: null
-  configuration: {}
+  configuration:
+    file_source:
+      path: transformers/train_fasttext_compiler.py
   downstream_blocks:
-  - product_tokenize_transform
+  - add_data_to_qdrant
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: train_fasttext_compiler
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
@@ -57,27 +115,6 @@ blocks:
 - all_upstream_blocks_executed: false
   color: null
   configuration:
-    file_path: transformers/product_tokenize_transform.py
-    file_source:
-      path: transformers/product_tokenize_transform.py
-  downstream_blocks:
-  - add_data_to_qdrant
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: product_tokenize_transform
-  retry_config: null
-  status: executed
-  timeout: null
-  type: transformer
-  upstream_blocks:
-  - train_fasttext_compiler
-  uuid: product_tokenize_transform
-- all_upstream_blocks_executed: false
-  color: null
-  configuration:
-    file_path: data_exporters/add_data_to_qdrant.py
     file_source:
       path: data_exporters/add_data_to_qdrant.py
   downstream_blocks: []
@@ -85,13 +122,13 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: add data to qdrant
+  name: add_data_to_qdrant
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - product_tokenize_transform
+  - train_fasttext_compiler
   uuid: add_data_to_qdrant
 cache_block_output_in_memory: false
 callbacks: []
