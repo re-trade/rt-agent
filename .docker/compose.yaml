@@ -62,7 +62,7 @@ services:
     ports:
       - "6789:6789"
     environment:
-      PG_HOST: retrade-postgres
+      PG_HOST: retrade-database
       PG_PORT: 5432
       PG_DATABASE: ${DB_NAME}
       PG_USER: ${DB_USERNAME}
