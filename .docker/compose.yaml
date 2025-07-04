@@ -51,6 +51,28 @@ services:
       - prod
       - text-moderation
 
+  mage-ai:
+    image: ${REGISTRY}/rt-mageai
+    restart: always
+    container_name: rt-mageai
+    networks:
+      - retrade-network
+    environment:
+      PG_HOST: retrade-postgres
+      PG_PORT: 5432
+      PG_DATABASE: ${DB_NAME}
+      PG_USER: ${DB_USERNAME}
+      PG_PASSWORD: ${DB_PASSWORD}
+      MAGEAI_PORT: 6789
+      QDRANT_HOST: retrade-qdrant
+      QDRANT_PORT: 6333
+      QDRANT_COLLECTION_NAME: retrade-product
+      VECTOR_SIZE: 100
+    profiles:
+      - agent
+      - build
+      - mageai
+
 networks:
   retrade-network:
     name: retrade-network

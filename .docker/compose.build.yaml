@@ -21,3 +21,15 @@ services:
       - agent
       - build
       - text-moderation
+
+  mage-ai:
+    build:
+      context: ../mage-ai
+      dockerfile: Dockerfile
+      tags:
+        - ${REGISTRY}/rt-mageai:latest
+        - ${REGISTRY}/rt-mageai:${TAG}
+    profiles:
+      - agent
+      - build
+      - mageai
