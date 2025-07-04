@@ -55,6 +55,8 @@ services:
     image: ${REGISTRY}/rt-mageai:latest
     restart: always
     container_name: rt-mageai
+    tty: true
+    command: ["/app/run_app.sh", "mage", "start"]
     networks:
       - retrade-network
     ports:
