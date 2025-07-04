@@ -28,7 +28,7 @@ services:
       - prod
       - product-image-search
   text-moderation-services:
-    image: ${REGISTRY}/rt-text-moderation
+    image: ${REGISTRY}/rt-text-moderation:latest
     restart: always
     container_name: rt-text-moderation
     environment:
@@ -52,7 +52,7 @@ services:
       - text-moderation
 
   mage-ai:
-    image: ${REGISTRY}/rt-mageai
+    image: ${REGISTRY}/rt-mageai:latest
     restart: always
     container_name: rt-mageai
     networks:
