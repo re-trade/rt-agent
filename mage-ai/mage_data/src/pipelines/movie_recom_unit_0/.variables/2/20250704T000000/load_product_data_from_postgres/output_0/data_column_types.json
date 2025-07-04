@@ -1,0 +1,1 @@
+{"id": "int64", "name": "str", "description": "str", "price": "float64", "quantity": "int64", "status": "str", "rate": "float64", "discount": "float64", "image_url": "str", "food_type": "str", "created_at": "str", "updated_at": "str", "food_type_id": "int64"}

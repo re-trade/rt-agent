@@ -1,0 +1,166 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: data_loaders/load_product_data_from_postgres.py
+    file_source:
+      path: data_loaders/load_product_data_from_postgres.py
+  downstream_blocks:
+  - summary_overview_for_load_data_movie
+  - feature_engineering
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_product_data_from_postgres
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_product_data_from_postgres
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - missing_values_for_feature_engineering
+  - train_fasttext_compiler
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: feature_engineering
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_product_data_from_postgres
+  uuid: feature_engineering
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - product_tokenize_transform
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: train_fasttext_compiler
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - feature_engineering
+  uuid: train_fasttext_compiler
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_path: transformers/product_tokenize_transform.py
+    file_source:
+      path: transformers/product_tokenize_transform.py
+  downstream_blocks:
+  - add_data_to_qdrant
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: product_tokenize_transform
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - train_fasttext_compiler
+  uuid: product_tokenize_transform
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_path: data_exporters/add_data_to_qdrant.py
+    file_source:
+      path: data_exporters/add_data_to_qdrant.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add data to qdrant
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - product_tokenize_transform
+  uuid: add_data_to_qdrant
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-09-25 04:43:43.942186+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: product_recom_unit_0
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags:
+- movie_recommandation
+- recommandation
+type: python
+uuid: product_recom_unit_0
+variables: {}
+variables_dir: /home/src/mage_data/src
+widgets:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_type: table
+    height: 3000
+    index: stats
+    x: headers
+    y: rows
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: summary overview for load_data_movie
+  retry_config: null
+  status: executed
+  timeout: null
+  type: chart
+  upstream_blocks: []
+  uuid: summary_overview_for_load_data_movie
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_style: horizontal
+    chart_type: bar chart
+    group_by: []
+    metrics: []
+    order_by:
+    - crew
+    x: columns_with_mising_values
+    y: percentage_of_missing_values
+    y_sort_order: descending
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: missing values for feature_engineering
+  retry_config: null
+  status: updated
+  timeout: null
+  type: chart
+  upstream_blocks: []
+  uuid: missing_values_for_feature_engineering

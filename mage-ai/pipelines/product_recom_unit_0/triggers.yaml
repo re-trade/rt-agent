@@ -1,0 +1,34 @@
+triggers:
+- description: null
+  envs: []
+  last_enabled_at: 2024-10-23 10:45:48.453723
+  name: update_qdrant_database
+  pipeline_uuid: movie_recom_unit_0
+  schedule_interval: '@daily'
+  schedule_type: time
+  settings: null
+  sla: null
+  start_time: 2024-10-23 10:43:00
+  status: active
+  token: 1e95edb8e762475fb43e4255640d4d0b
+  variables:
+    collection_name: movies
+    cutoff: 15000
+    embedding_json_filepath: data_demo/trainning_data/document_embeddings.json
+    food_collection_name: foods
+    food_datacsv_path: https://nge-nqa.s3.ap-southeast-1.amazonaws.com/foods.csv
+    food_trainning_data_filepath: data_demo/trainning_data/food_trainning_10000.txt
+    movie_datacsv_path: https://nge-nqa.s3.ap-southeast-1.amazonaws.com/film_data_v3.csv
+    movie_trainning_data_filepath: data_demo/trainning_data/movie_trainning_10000.txt
+    qdrant_host: localhost
+    qdrant_port: 6333
+    selected_features:
+    - name
+    - origin_name
+    - description
+    - film_type
+    - category_names
+    - country_codes
+    - cast_names
+    - director_names
+    vector_size: 50

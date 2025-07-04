@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  run:
+    cmds:
+      - docker run -it -p 6789:6789 -v $(pwd):/home/src mageai/mageai /app/run_app.sh mage run . movie_recom_unit_0
+  local: 
+    cmds:
+      - docker run -it -p 6789:6789 -v $(pwd):/home/src mageai/mageai /app/run_app.sh mage start
