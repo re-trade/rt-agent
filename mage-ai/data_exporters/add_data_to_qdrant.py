@@ -1,9 +1,11 @@
-import os
+
+import uuid
 import numpy as np
+from load_helpers.qdrant_helper import get_qdrant_config_from_env
 from pandas import DataFrame
 from qdrant_client import QdrantClient
-from qdrant_client.http.models import PointStruct, VectorParams, Distance
-from load_helpers.qdrant_helper import get_qdrant_config_from_env
+from qdrant_client.http.models import Distance, PointStruct, VectorParams
+
 if 'data_exporter' not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
 @data_exporter
@@ -37,16 +39,21 @@ def load_data_to_qdrant(product_vectors: DataFrame, **kwargs) -> None:
             vector = row["vector"]
             if isinstance(vector, np.ndarray):
                 vector = vector.tolist()
+            try:
+                point_id = str(uuid.UUID(str(row["product_id"])))
+            except ValueError:
+                point_id = str(row["product_id"])
 
             point = PointStruct(
-                id=row["product_id"],
+                id=point_id,
                 vector=vector,
                 payload={
-                    "product_id": row["product_id"],
+                    "product_id": str(row["product_id"]),
                     "combined_features": row["combined_features"]
                 }
             )
             points.append(point)
+
     except Exception as e:
         print(f"❌ Error preparing points: {str(e)}")
         return
