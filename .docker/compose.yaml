@@ -57,6 +57,8 @@ services:
     container_name: rt-mageai
     networks:
       - retrade-network
+    ports:
+      - "6789:6789"
     environment:
       PG_HOST: retrade-postgres
       PG_PORT: 5432
