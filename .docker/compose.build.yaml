@@ -33,3 +33,15 @@ services:
       - agent
       - build
       - mageai
+  
+  go-recommender:
+    image: ${REGISTRY}/rt-go-recommender:latest
+    build:
+      context: ../go-recommend
+      dockerfile: Dockerfile
+      tags:
+        - ${REGISTRY}/rt-go-recommender:${TAG}
+    profiles:
+      - agent
+      - build
+      - go-recommender

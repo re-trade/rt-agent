@@ -76,6 +76,25 @@ services:
       - agent
       - prod
       - mageai
+  
+  go-recommender:
+    container_name: rt-go-recommender
+    image: ${REGISTRY}/rt-go-recommender:latest
+    restart: always
+    tty: true
+    environment:
+      DEV: false
+      QDRANT_HTTP: 6333
+      QDRANT_GRPC: 6334
+      QDRANT_HOST: retrade-qdrant
+      VECTOR_SIZE: 100
+      QDRANT_PRODUCT_COLLECTION_NAME: retrade-product
+    networks:
+      - retrade-network
+    profiles:
+      - agent
+      - prod
+      - go-recommender
 
 networks:
   retrade-network:
