@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package recommendation;
+
+option go_package = "invoicer/recommendation";
+
+message ProductRequest {
+  string product_id = 1;
+  string product_ids = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message ScoreItem {
+  string id = 1;
+  float score = 2;
+}
+
+message ErrorResponse {
+  string error_code = 1;
+  string error_message = 2;
+}
+
+message ProductResponse {
+  repeated ScoreItem items = 1;
+  ErrorResponse error = 2;
+  int32 total_pages = 3;
+}
+
+service RecommendationService {
+  rpc RecommendByProductId(ProductRequest) returns (ProductResponse);
+  rpc ListSimilar (ProductRequest) returns (ProductResponse);
+}
