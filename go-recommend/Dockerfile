@@ -16,4 +16,4 @@ WORKDIR /
 COPY --from=build /product-recommendation /product-recommendation
 EXPOSE 8080
 
-CMD ["/movie-recommendation"]
+ENTRYPOINT ["/product-recommendation"]
