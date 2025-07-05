@@ -1,0 +1,1 @@
+{"customer_id": "str", "product_id": "str", "quantity": "int64", "created_date": "datetime64[ns]"}

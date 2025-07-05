@@ -41,19 +41,23 @@ def load_data_to_qdrant(product_vectors: DataFrame, **kwargs) -> None:
                 vector = vector.tolist()
             try:
                 point_id = str(uuid.UUID(str(row["product_id"])))
-            except ValueError:
+            except (ValueError, TypeError, AttributeError):
                 point_id = str(row["product_id"])
 
             point = PointStruct(
                 id=point_id,
                 vector=vector,
                 payload={
-                    "product_id": str(row["product_id"]),
-                    "combined_features": row["combined_features"]
+                    "product_id": point_id,
+                    "combined_features": row.get("combined_features", "")
                 }
             )
-            points.append(point)
-
+            try:
+                points.append(point)
+            except Exception as e:
+                print(f"❌ Error processing row {row['product_id']}: {str(e)}")
+                continue
+            
     except Exception as e:
         print(f"❌ Error preparing points: {str(e)}")
         return
