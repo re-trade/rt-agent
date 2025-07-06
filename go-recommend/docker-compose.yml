@@ -1,37 +1,18 @@
 
 services:
-  qdrant:
-    container_name: ${VERTORDB_SERVICE_NAME}
-    image: qdrant/qdrant:v1.11.5  
-    ports:
-      - "${QDRANT_HTTP}:${QDRANT_HTTP}"
-      - "${QDRANT_gRPC}:${QDRANT_gRPC}"
-    volumes:
-      - qdrant_data:/qdrant/storage
-    env_file:
-      - .env
-    networks:
-      - movie_provider
-
-  recomgo-service:
-    container_name: ${RECOMGO_SERVICE_NAME}
+  go-recommend-service:
+    container_name: go-recommend-service
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${RECOMGO_SERVICE_PORT}:${RECOMGO_SERVICE_PORT}"
-    depends_on:
-      - qdrant
+      - "8386:8386"
     env_file:
       - .env
     networks:
-      - movie_provider
-    
-volumes:
-  qdrant_data:
+      - retrade-agent
 
 
 networks:
-  movie_provider:
-    name: movie_provider
-    external: true
+  retrade-agent:
+    name: retrade-agent
