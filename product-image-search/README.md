@@ -49,7 +49,7 @@ docker-compose up -d
 
 # View logs
 
-docker-compose logs -f foodaily-ai
+docker-compose logs -f retrade-ai
 
 # Stop the container
 

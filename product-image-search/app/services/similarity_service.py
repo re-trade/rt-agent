@@ -3,7 +3,6 @@ from io import BytesIO
 from collections import Counter
 from PIL import Image
 import torch
-from qdrant_client.http.models import Distance, VectorParams
 from transformers import CLIPProcessor, CLIPModel
 from qdrant_client import QdrantClient
 from app.models.request_models import SearchResults, SimilarityResult
@@ -33,7 +32,6 @@ class SimilarityService:
 
         self.collection_name = settings.QDRANT_COLLECTION_NAME
         self.client = QdrantClient(url=settings.QDRANT_URL, prefer_grpc=True)
-        self.ensure_collection_exists()
 
     def get_image_embedding(self, image: Image.Image):
         inputs = self.processor(images=image, return_tensors="pt").to(self.device)
@@ -118,19 +116,5 @@ class SimilarityService:
                 "status": "unhealthy",
                 "error": str(e)
             }
-
-    def ensure_collection_exists(self):
-        existing_collections = [c.name for c in self.client.get_collections().collections]
-        if self.collection_name in existing_collections:
-            return
-
-        self.client.create_collection(
-            collection_name=self.collection_name,
-            vectors_config=VectorParams(
-                size=512,
-                distance=Distance.COSINE
-            )
-        )
-        print(f"Collection '{self.collection_name}' created with vector size 512 (CLIP output).")
 
 similarity_service = SimilarityService()
