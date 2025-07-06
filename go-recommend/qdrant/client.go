@@ -27,7 +27,17 @@ func InitializeQdrant() (*qdrant.Client, error) {
 		return nil, fmt.Errorf("failed To Connected To Qdrant: %v", err)
 	}
 	fmt.Println("Qdrant Connected !!!")
-
+	collectionName := getProductCollectionName()
+	resp, err := client.ListCollections(context.Background())
+	if err != nil {
+		return nil, err
+	}
+	for _, name := range resp {
+		if name == collectionName {
+			fmt.Println("Qdrant Collection Already Exists !!!")
+			return client, nil
+		}
+	}
 	err = client.CreateCollection(context.Background(), &qdrant.CreateCollection{
 		CollectionName: getProductCollectionName(),
 		VectorsConfig: qdrant.NewVectorsConfig(&qdrant.VectorParams{

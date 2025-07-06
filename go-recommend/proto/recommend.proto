@@ -6,7 +6,7 @@ option go_package = "invoicer/recommendation";
 
 message ProductRequest {
   string product_id = 1;
-  string product_ids = 2;
+  repeated string product_ids = 2;
   int32 page = 3;
   int32 page_size = 4;
 }

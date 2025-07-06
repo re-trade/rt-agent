@@ -24,7 +24,10 @@ func main() {
 		testURL := fmt.Sprintf("http://%s:6333/collections", cfg.QdrantGrpcHost)
 		resp, err := http.Get(testURL)
 		if err == nil {
-			resp.Body.Close()
+			err := resp.Body.Close()
+			if err != nil {
+				return
+			}
 			connected = true
 			log.Printf("Successfully connected to Qdrant at %s", testURL)
 		} else {
@@ -39,7 +42,10 @@ func main() {
 
 				resp, err := http.Get(testURL)
 				if err == nil {
-					resp.Body.Close()
+					err := resp.Body.Close()
+					if err != nil {
+						return
+					}
 					log.Printf("Successfully connected to Qdrant at %s", testURL)
 					log.Printf("Consider updating your configuration to use %s instead of %s", host, cfg.QdrantGrpcHost)
 					cfg.QdrantGrpcHost = host

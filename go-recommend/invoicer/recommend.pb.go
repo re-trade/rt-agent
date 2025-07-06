@@ -24,7 +24,7 @@ const (
 type ProductRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ProductId     string                 `protobuf:"bytes,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	ProductIds    string                 `protobuf:"bytes,2,opt,name=product_ids,json=productIds,proto3" json:"product_ids,omitempty"`
+	ProductIds    []string               `protobuf:"bytes,2,rep,name=product_ids,json=productIds,proto3" json:"product_ids,omitempty"`
 	Page          int32                  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize      int32                  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -68,11 +68,11 @@ func (x *ProductRequest) GetProductId() string {
 	return ""
 }
 
-func (x *ProductRequest) GetProductIds() string {
+func (x *ProductRequest) GetProductIds() []string {
 	if x != nil {
 		return x.ProductIds
 	}
-	return ""
+	return nil
 }
 
 func (x *ProductRequest) GetPage() int32 {
@@ -261,7 +261,7 @@ const file_proto_recommend_proto_rawDesc = "" +
 	"\x0eProductRequest\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tR\tproductId\x12\x1f\n" +
-	"\vproduct_ids\x18\x02 \x01(\tR\n" +
+	"\vproduct_ids\x18\x02 \x03(\tR\n" +
 	"productIds\x12\x12\n" +
 	"\x04page\x18\x03 \x01(\x05R\x04page\x12\x1b\n" +
 	"\tpage_size\x18\x04 \x01(\x05R\bpageSize\"1\n" +
