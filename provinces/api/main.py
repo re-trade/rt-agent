@@ -7,6 +7,7 @@ from fastapi.responses import RedirectResponse
 from logbook import Logger, StreamHandler
 from logbook.more import ColorizedStderrHandler
 from pydantic_settings import BaseSettings
+from starlette.middleware.cors import CORSMiddleware
 
 from . import __version__
 from .v1 import api_v1
@@ -29,6 +30,15 @@ app = FastAPI(
     title='Vietnam Provinces online API',
     version=__version__,
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
 settings = Settings()
 app.mount('/', api_v1)
 
