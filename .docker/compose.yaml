@@ -63,7 +63,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.province.rule=PathPrefix(`/api/province/v1/`)"
       - "traefik.http.routers.province.entrypoints=web"
-      - "traefik.http.middlewares.province.stripprefix.prefixes=/api/province/v1"
+      - "traefik.http.middlewares.strip-province-prefix.stripprefix.prefixes=/api/province/v1"
       - "traefik.http.routers.province.middlewares=strip-province-prefix"
       - "traefik.docker.network=retrade-network"
       - "traefik.constraint-label=retrade-service"
