@@ -67,7 +67,7 @@ services:
       - "traefik.http.routers.province.middlewares=strip-province-prefix"
       - "traefik.docker.network=retrade-network"
       - "traefik.constraint-label=retrade-service"
-      - "traefik.http.services.province.loadbalancer.server.port=8000"
+      - "traefik.http.services.province.loadbalancer.server.port=9090"
     profiles:
       - agent
       - prod
