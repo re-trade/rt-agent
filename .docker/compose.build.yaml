@@ -51,8 +51,6 @@ services:
     build:
       context: ../provinces
       dockerfile: Dockerfile
-    networks:
-      - retrade-network
     profiles:
       - agent
       - build
