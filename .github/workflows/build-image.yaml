@@ -33,6 +33,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set TAG environment variable
         run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - name: Clean Before Build
+        run: docker system prune -a -f
       - name: Build and push image
         run: |
           docker compose -f .docker/compose.build.yaml --profile ${{matrix.service}} build --parallel
