@@ -30,12 +30,7 @@ app = FastAPI(
     version=__version__,
 )
 settings = Settings()
-app.mount('/api/v1', api_v1)
-
-
-@app.get('/api/', include_in_schema=False)
-def redirect_api():
-    return RedirectResponse(url='/api/v1/', status_code=HTTPStatus.TEMPORARY_REDIRECT)
+app.mount('/', api_v1)
 
 
 @app.middleware('http')

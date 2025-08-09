@@ -45,3 +45,15 @@ services:
       - agent
       - build
       - go-recommender
+
+  province-services:
+    image: ${REGISTRY}/vn-province:latest
+    build:
+      context: ../provinces
+      dockerfile: Dockerfile
+    networks:
+      - retrade-network
+    profiles:
+      - agent
+      - build
+      - province
