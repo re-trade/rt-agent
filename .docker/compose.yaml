@@ -57,6 +57,7 @@ services:
     container_name: rt-province
     environment:
       TZ: Asia/Ho_Chi_Minh
+      ENV: production
     networks:
       - retrade-network
     labels:
