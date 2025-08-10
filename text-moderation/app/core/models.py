@@ -11,3 +11,7 @@ class CommentResponse(BaseModel):
     status: str
     message: str
     data: list = None
+
+class FeedbackRequest(BaseModel):
+    review: str | None = None
+    rating: int

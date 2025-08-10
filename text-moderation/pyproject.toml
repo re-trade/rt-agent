@@ -5,9 +5,9 @@ description = "Text Moderation"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-"uvicorn",
-"fastapi",
-"openai",
-"pydantic",
-"dotenv"
+    "uvicorn",
+    "fastapi",
+    "openai",
+    "pydantic",
+    "python-dotenv>=1.1.0",
 ]

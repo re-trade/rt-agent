@@ -4,8 +4,10 @@ import random
 from os import getenv
 from openai import OpenAI, APIConnectionError, APIError, RateLimitError
 
+from app.config import settings
+
 logger = logging.getLogger(__name__)
-client = OpenAI(api_key=getenv("OPENAI_API_KEY", ""))
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 def sentiment_analysis(text: str, max_retries: int = 3):
     retry_count = 0

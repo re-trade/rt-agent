@@ -1,7 +1,8 @@
-from app.api.health import router as health_router
-from app.api.review import router as review_router
+from app.api import api_v1
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.config import settings
 
 app = FastAPI(title="Comment Moderation API")
 origins = [
@@ -16,5 +17,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.include_router(review_router, prefix="/comment", tags=["Comment Moderation"])
-app.include_router(health_router, tags=["Health Check"])
+if settings.ENV == 'production':
+    app.include_router(api_v1, prefix="/")
+else:
+    app.include_router(api_v1, prefix="/api/v1")
