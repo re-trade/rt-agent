@@ -35,14 +35,13 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       COMMENT_PORT: 8888
       TZ: Asia/Ho_Chi_Minh
+      ENV: production
     networks:
       - retrade-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.text-moderation.rule=PathPrefix(`/api/text-moderation/v1/`)"
       - "traefik.http.routers.text-moderation.entrypoints=web"
-      - "traefik.http.middlewares.strip-text-moderation-prefix.stripprefix.prefixes=/api/text-moderation/v1"
-      - "traefik.http.routers.text-moderation.middlewares=strip-text-moderation-prefix"
       - "traefik.docker.network=retrade-network"
       - "traefik.constraint-label=retrade-service"
       - "traefik.http.services.text-moderation.loadbalancer.server.port=8888"
@@ -64,8 +63,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.province.rule=PathPrefix(`/api/province/v1/`)"
       - "traefik.http.routers.province.entrypoints=web"
-      - "traefik.http.middlewares.strip-province-prefix.stripprefix.prefixes=/api/province/v1"
-      - "traefik.http.routers.province.middlewares=strip-province-prefix"
       - "traefik.docker.network=retrade-network"
       - "traefik.constraint-label=retrade-service"
       - "traefik.http.services.province.loadbalancer.server.port=9090"
