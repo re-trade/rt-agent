@@ -10,4 +10,5 @@ dependencies = [
     "openai",
     "pydantic",
     "python-dotenv>=1.1.0",
+    "pyinstaller>=6.15.0",
 ]

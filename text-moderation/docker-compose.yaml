@@ -6,9 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - ${COMMENT_PORT}:${COMMENT_PORT}
+      - 8001:8001
     environment:
       - PYTHONUNBUFFERED=1
       - LOG_LEVEL=INFO
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PORT=8001
     restart: always

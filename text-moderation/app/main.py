@@ -21,3 +21,7 @@ if settings.ENV == 'production':
     app.include_router(api_v1, prefix="/api/text-moderation/v1")
 else:
     app.include_router(api_v1, prefix="/api/v1")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host=settings.HOST, port=settings.PORT)
