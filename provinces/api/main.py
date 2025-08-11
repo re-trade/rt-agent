@@ -38,7 +38,7 @@ app.add_middleware(
 )
 
 if settings.ENV == 'production':
-    app.mount('/', api_v1)
+    app.mount('/api/province/v1', api_v1)
 else:
     app.mount('/api/v1', api_v1)
 

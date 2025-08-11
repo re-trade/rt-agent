@@ -18,6 +18,6 @@ app.add_middleware(
 )
 
 if settings.ENV == 'production':
-    app.include_router(api_v1, prefix="/")
+    app.include_router(api_v1, prefix="/api/text-moderation/v1")
 else:
     app.include_router(api_v1, prefix="/api/v1")
