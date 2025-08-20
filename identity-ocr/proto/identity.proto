@@ -1,0 +1,27 @@
+syntax = "proto3";
+package identity;
+
+message IdentityCardRequest {
+  string base64_image = 1;
+}
+
+message IdentityCard {
+  string identity_number = 1;
+  string full_name = 2;
+  string date_of_birth = 3;
+  string sex = 4;
+  string nationality = 5;
+  string place_of_origin = 6;
+  string place_of_residence = 7;
+  string date_of_expiry = 8;
+}
+
+message IdentityCardResponse {
+  string message = 1;
+  IdentityCard card = 2;
+  bool success = 3;
+}
+
+service IdentityService {
+  rpc ProcessIdentityCard(IdentityCardRequest) returns (IdentityCardResponse);
+}
