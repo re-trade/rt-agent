@@ -55,3 +55,13 @@ services:
       - agent
       - build
       - province
+  
+  identity-ocr:
+    image: ${REGISTRY}/identity-ocr:latest
+    build:
+      context: ../identity-ocr
+      dockerfile: Dockerfile
+    profiles:
+      - agent
+      - build
+      - identity-ocr

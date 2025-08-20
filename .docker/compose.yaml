@@ -27,6 +27,20 @@ services:
       - agent
       - prod
       - product-image-search
+  identity-ocr:
+    image: ${REGISTRY}/identity-ocr:latest
+    restart: always
+    container_name: rt-identity-ocr
+    environment:
+      OPENAI_KEY: ${OPENAI_API_KEY}
+      APP_PORT: 5000
+      TZ: Asia/Ho_Chi_Minh
+    networks:
+      - retrade-network
+    profiles:
+      - agent
+      - prod
+      - identity-ocr
   text-moderation-services:
     image: ${REGISTRY}/rt-text-moderation:latest
     restart: always
