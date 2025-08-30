@@ -15,7 +15,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.image-search.rule=PathPrefix(`/api/image-search/v1/`)"
-      - "traefik.http.routers.image-search.entrypoints=web"
+      - "traefik.http.routers.image-search.entrypoints=${PROTOCOL:-web}"
       - "traefik.http.middlewares.strip-image-search-prefix.stripprefix.prefixes=/api/image-search/v1"
       - "traefik.http.routers.image-search.middlewares=strip-image-search-prefix"
       - "traefik.docker.network=retrade-network"
@@ -55,7 +55,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.text-moderation.rule=PathPrefix(`/api/text-moderation/v1/`)"
-      - "traefik.http.routers.text-moderation.entrypoints=web"
+      - "traefik.http.routers.text-moderation.entrypoints=${PROTOCOL:-web}"
       - "traefik.docker.network=retrade-network"
       - "traefik.constraint-label=retrade-service"
       - "traefik.http.services.text-moderation.loadbalancer.server.port=8888"
@@ -76,7 +76,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.province.rule=PathPrefix(`/api/province/v1/`)"
-      - "traefik.http.routers.province.entrypoints=web"
+      - "traefik.http.routers.province.entrypoints=${PROTOCOL:-web}"
       - "traefik.docker.network=retrade-network"
       - "traefik.constraint-label=retrade-service"
       - "traefik.http.services.province.loadbalancer.server.port=9090"

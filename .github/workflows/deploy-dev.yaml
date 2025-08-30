@@ -48,6 +48,7 @@ jobs:
       packages: write
     env:
       REGISTRY: ghcr.io/${{ inputs.repository }}
+      PROTOCOL: websecure
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
