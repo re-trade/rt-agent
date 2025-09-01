@@ -21,10 +21,10 @@ def combine_features(df: pd.DataFrame, columns: list, new_column='combined_featu
 
 @transformer
 def transform(
-    products_df: pd.DataFrame,
+    categories_df: pd.DataFrame,
     orders_df: pd.DataFrame,
     product_categories_df: pd.DataFrame,
-    categories_df: pd.DataFrame,
+    products_df: pd.DataFrame,
     *args,
     **kwargs
 ) -> pd.DataFrame:
