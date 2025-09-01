@@ -19,20 +19,21 @@ def transform(data: pd.DataFrame, *args, **kwargs):
     
     model = fasttext.train_unsupervised(tmp_path)
     fasttext.util.reduce_model(model, vector_size)
-
     os.remove(tmp_path)
     
     def embed(text: str) -> np.ndarray:
         tokens = text.split()
         if not tokens:
-            return np.zeros(vector_size)
+            return np.zeros(vector_size, dtype=np.float32)
         vectors = [model.get_word_vector(t) for t in tokens if t in model.words]
-        return np.mean(vectors, axis=0) if vectors else np.zeros(vector_size)
+        return np.mean(vectors, axis=0, dtype=np.float32) if vectors else np.zeros(vector_size, dtype=np.float32)
+
     result = pd.DataFrame()
     result["product_id"] = data["id"].astype(str)
     result["combined_features"] = data["combined_features"]
     result["vector"] = [embed(text) for text in data["combined_features"]]
     return result
+
 
 @test
 def test_output(output: pd.DataFrame, *args) -> None:
@@ -40,3 +41,4 @@ def test_output(output: pd.DataFrame, *args) -> None:
     assert "product_id" in output.columns
     assert "vector" in output.columns
     assert isinstance(output.iloc[0]['vector'], (list, np.ndarray)), "vector column không hợp lệ"
+    assert output.iloc[0]['vector'].dtype == np.float32, "vector dtype không đồng nhất"
